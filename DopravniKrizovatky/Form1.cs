@@ -16,10 +16,5 @@ namespace DopravniKrizovatky
         {
             InitializeComponent();
         }
-
-        void Ahoj()
-        {
-            MessageBox.Show("Ahoj");
-        }
     }
 }
