@@ -81,13 +81,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(584, 361);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnPractice);
             this.Controls.Add(this.btnLearning);
             this.Controls.Add(this.lblTitle);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dopravní Křizovatky";
             this.ResumeLayout(false);
             this.PerformLayout();
