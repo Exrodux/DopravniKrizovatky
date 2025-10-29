@@ -94,7 +94,7 @@
             this.Controls.Add(this.lblTitle);
             this.Name = "LearningForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LearningForm";
+            this.Text = "Výuka";
             this.ResumeLayout(false);
             this.PerformLayout();
 

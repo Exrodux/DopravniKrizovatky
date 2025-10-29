@@ -8,6 +8,7 @@ namespace DopravniKrizovatky
     public partial class LearningForm : Form
     {
         private Scenario currentScenario;
+        private Random random = new Random();
 
         public LearningForm()
         {
@@ -16,19 +17,39 @@ namespace DopravniKrizovatky
 
         private void btnLoadScenario_Click(object sender, EventArgs e)
         {
-            string path = "../../scenarios/scen01.json"; 
-            if (File.Exists(path))
+            string folder = "../../scenarios";
+
+            if (!Directory.Exists(folder))
             {
-                string json = File.ReadAllText(path);
+                MessageBox.Show("Složka 'scenarios' nebyla nalezena!", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            
+            string[] files = Directory.GetFiles(folder, "*.json");
+
+            if (files.Length == 0)
+            {
+                MessageBox.Show("Ve složce nejsou žádné scénáře!", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            
+            string randomFile = files[random.Next(files.Length)];
+
+            try
+            {
+                string json = File.ReadAllText(randomFile);
                 currentScenario = JsonSerializer.Deserialize<Scenario>(json,
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                 lblTitle.Text = currentScenario.Title;
-                lblDescription.Text = currentScenario.Description + "\n\n" + currentScenario.Explanation;
+                lblDescription.Text =
+                    currentScenario.Description + "\n\n" + currentScenario.Explanation;
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Soubor scénáře nenalezen!", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Chyba při načítání scénáře:\n" + ex.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -1,8 +1,8 @@
 {
   "id": "scen01",
-  "title": "Neřízená křižovatka – pravidlo pravé ruky",
+  "title": "Neřízená křižovatka",
   "type": "nerizene",
-  "description": "Tři vozidla přijíždějí ke křižovatce z různých směrů. Není zde žádná značka ani semafor.",
+  "description": "Tři vozidla přijíždějí ke křižovatce bez značek a semaforů. Platí pravidlo pravé ruky.",
   "vehicles": [
     { "id": "v1", "type": "auto", "approach": "sever", "direction": "rovně" },
     { "id": "v2", "type": "auto", "approach": "východ", "direction": "rovně" },

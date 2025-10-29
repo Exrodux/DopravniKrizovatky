@@ -1,0 +1,11 @@
+{
+  "id": "scen03",
+  "title": "Křižovatka se semafory",
+  "type": "semafor",
+  "description": "Semafory řídí provoz. Auto z jihu má zelenou, auto ze západu červenou.",
+  "vehicles": [
+    { "id": "v1", "type": "auto", "approach": "jih", "direction": "rovně" },
+    { "id": "v2", "type": "auto", "approach": "západ", "direction": "rovně" }
+  ],
+  "explanation": "Projíždí jen v1, protože má zelenou. v2 musí stát na červenou."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "scen02",
+  "title": "Hlavní a vedlejší silnice",
+  "type": "znacky",
+  "description": "Na křižovatce je značka hlavní silnice. Auto z vedlejší musí dát přednost.",
+  "vehicles": [
+    { "id": "v1", "type": "auto", "approach": "sever", "direction": "rovně" },
+    { "id": "v2", "type": "auto", "approach": "východ", "direction": "rovně" }
+  ],
+  "explanation": "Auto v1 je na hlavní, projíždí první. Auto v2 z vedlejší jede až po něm."
+}
