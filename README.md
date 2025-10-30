@@ -1,5 +1,5 @@
 # DopravniKrizovatky
-DOPRAVNÍ KŘIŽOVATKY – INTERAKTIVNÍ VÝUKOVÁ APLIKACE
+DOPRAVNÍ KŘIŽOVATKY
 
 Aplikace určená pro výuku a procvičování správného pořadí průjezdu vozidel na dopravních křižovatkách. Projekt vzniká jako školní práce.
 
