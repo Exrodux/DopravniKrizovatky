@@ -15,7 +15,7 @@ namespace DopravniKrizovatky
     public partial class MainForm : Form
     {
 
-        private Scenario currentScenario;
+        
 
 
         public MainForm()
