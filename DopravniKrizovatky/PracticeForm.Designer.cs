@@ -90,8 +90,11 @@
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnBack);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PracticeForm";
-            this.Text = "PracticeForm";
+            this.Text = "Procvičování";
             this.ResumeLayout(false);
             this.PerformLayout();
 

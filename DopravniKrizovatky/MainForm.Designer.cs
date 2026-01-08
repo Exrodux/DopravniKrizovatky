@@ -87,6 +87,9 @@
             this.Controls.Add(this.btnPractice);
             this.Controls.Add(this.btnLearning);
             this.Controls.Add(this.lblTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dopravní Křizovatky";

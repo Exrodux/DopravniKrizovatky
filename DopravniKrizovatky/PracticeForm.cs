@@ -13,6 +13,7 @@ namespace DopravniKrizovatky
         public PracticeForm()
         {
             InitializeComponent();
+            this.FormClosed += PracticeForm_FormClosed;
         }
 
         private void btnLoadScenario_Click(object sender, EventArgs e)
@@ -61,5 +62,12 @@ namespace DopravniKrizovatky
             mainMenu.Show();
             this.Close();
         }
+
+        private void PracticeForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit(); 
+        }
+
+
     }
 }

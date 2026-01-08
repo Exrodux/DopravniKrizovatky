@@ -1,0 +1,23 @@
+{
+  "Id": "KB2-Test",
+  "Title": "Grafický test",
+  "Description": "Testování vykreslování.",
+  "Explanation": "Červené auto jede první (má přednost).",
+  "BackgroundImage": "krizovatka_t.png",
+  "Vehicles": [
+    {
+      "Id": "Červené auto",
+      "ImageName": "car_red.png",
+      "X": 280, "Y": 15,
+      "CorrectOrder": 1,
+	  "Rotation": 0
+    },
+    {
+      "Id": "Modré auto",
+      "ImageName": "car_blue.png",
+      "X": 230, "Y": 70,
+      "CorrectOrder": 2,
+	  "Rotation": 90
+    }
+  ]
+}
