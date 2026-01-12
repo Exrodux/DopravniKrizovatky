@@ -1,11 +1,14 @@
 {
   "Id": "KB2-Test",
   "Title": "Grafický test",
-  "Description": "Testování vykreslování.",
-  "Explanation": "Červené auto jede první (má přednost).",
+  "Description": "Testování vykreslování s animací.",
+  "Explanation": "Červené auto jede rovně, modré odbočuje vlevo.",
   "BackgroundImage": "krizovatka_t.png",
   
-  "Signs": [],
+  "Signs": [
+     { "ImageName": "znacka_hlavni.png", "X": 260, "Y": 50 },
+     { "ImageName": "znacka_dej_prednost.png", "X": 200, "Y": 80 }
+  ],
 
   "Vehicles": [
     {
@@ -16,7 +19,7 @@
       "CorrectOrder": 1,
       
       "TurnSignal": "None",
-      "Reason": "Jede rovně po hlavní.",
+      "Reason": "Jede rovně po hlavní silnici.",
       
       "TargetX": -150, "TargetY": 15, "TargetRotation": 0
     },
@@ -28,10 +31,10 @@
       "CorrectOrder": 2,
       
       "TurnSignal": "Left",
-      "Reason": "Dává přednost zprava.",
+      "Reason": "Dává přednost zprava a odbočuje.",
       
-      "TargetX": -150, "TargetY": 70, "TargetRotation": 0,
-      "ControlX": 230, "ControlY": 15
+      "TargetX": -150, "TargetY": 10, "TargetRotation": 0,
+      "ControlX": 240, "ControlY": 15
     }
   ]
 }
