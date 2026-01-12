@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Drawing; 
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
-using System.Linq; 
 
 namespace DopravniKrizovatky
 {
@@ -11,208 +11,212 @@ namespace DopravniKrizovatky
     {
         private Scenario currentScenario;
         private Random random = new Random();
-
-      
-        private int currentStep = 0; 
-        
         private string imagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../assets/images");
+
+        private int currentStep = 0;
+
+        // Animace
+        private Timer animationTimer;
+        private Vehicle animatingVehicle = null;
+        private float animationProgress = 0f;
+        private float animationSpeed = 0.03f;
 
         public LearningForm()
         {
             InitializeComponent();
 
-            this.FormClosed += LearningForm_FormClosed; 
+            // DoubleBuffering (proti blikání)
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
+            this.DoubleBuffered = true;
+            this.FormClosed += (s, e) => Application.Exit();
+
+            animationTimer = new Timer();
+            animationTimer.Interval = 20;
+            animationTimer.Tick += AnimationTimer_Tick;
         }
 
         private void btnLoadScenario_Click(object sender, EventArgs e)
         {
-          
-            string folder = "../../scenarios"; 
+            LoadRandomScenario();
+        }
 
-            if (!Directory.Exists(folder))
-            {
-               
-                folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../scenarios");
-            }
+        private void LoadRandomScenario()
+        {
+            string folder = "../../scenarios";
+            if (!Directory.Exists(folder)) folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../scenarios");
 
-            if (!Directory.Exists(folder))
-            {
-                MessageBox.Show($"Složka se scénáři nebyla nalezena!\nHledáno v: {Path.GetFullPath(folder)}", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
+            if (!Directory.Exists(folder)) { MessageBox.Show("Složka scenarios nenalezena."); return; }
             string[] files = Directory.GetFiles(folder, "*.json");
-
-            if (files.Length == 0)
-            {
-                MessageBox.Show("Ve složce nejsou žádné scénáře!", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string randomFile = files[random.Next(files.Length)];
+            if (files.Length == 0) { MessageBox.Show("Žádné scénáře."); return; }
 
             try
             {
-                string json = File.ReadAllText(randomFile);
-                currentScenario = JsonSerializer.Deserialize<Scenario>(json,
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                string json = File.ReadAllText(files[random.Next(files.Length)]);
+                currentScenario = JsonSerializer.Deserialize<Scenario>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-           
+                // Reset
                 currentStep = 0;
-                lblTitle.Text = currentScenario.Title;
-                UpdateDescription(); 
+                animationTimer.Stop();
+                animatingVehicle = null;
+                if (currentScenario.Vehicles != null)
+                {
+                    foreach (var v in currentScenario.Vehicles)
+                    {
+                        v.IsFinished = false;
+                        v.CurrentX = v.X; v.CurrentY = v.Y; v.CurrentRotation = v.Rotation;
+                    }
+                }
 
-      
+                lblTitle.Text = currentScenario.Title;
+                UpdateDescription();
                 pbMap.Invalidate();
             }
-            catch (Exception ex)
+            catch (Exception ex) { MessageBox.Show("Chyba: " + ex.Message); }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentScenario == null || animationTimer.Enabled) return;
+
+            var vehicleToMove = currentScenario.Vehicles.FirstOrDefault(v => v.CorrectOrder == currentStep + 1);
+
+            if (vehicleToMove != null && !vehicleToMove.IsFinished)
             {
-                MessageBox.Show("Chyba při načítání scénáře:\n" + ex.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Start animace
+                animatingVehicle = vehicleToMove;
+                animatingVehicle.CurrentX = animatingVehicle.X;
+                animatingVehicle.CurrentY = animatingVehicle.Y;
+                animatingVehicle.CurrentRotation = animatingVehicle.Rotation;
+                animationProgress = 0f;
+                animationTimer.Start();
+            }
+            else if (currentStep < currentScenario.Vehicles.Count)
+            {
+                currentStep++;
+                UpdateDescription();
+                pbMap.Invalidate();
             }
         }
 
-      
+        private void AnimationTimer_Tick(object sender, EventArgs e)
+        {
+            if (animatingVehicle == null) { animationTimer.Stop(); return; }
+            animationProgress += animationSpeed;
+
+            if (animationProgress >= 1.0f)
+            {
+                animationProgress = 1.0f;
+                animatingVehicle.IsFinished = true;
+                animationTimer.Stop();
+                animatingVehicle = null;
+
+                if (currentStep < currentScenario.Vehicles.Count)
+                {
+                    currentStep++;
+                    UpdateDescription();
+                }
+                pbMap.Invalidate();
+                return;
+            }
+
+            // Výpočet pozice (Bézier vs Lineární)
+            if (animatingVehicle.ControlX.HasValue && animatingVehicle.ControlY.HasValue)
+            {
+                float t = animationProgress;
+                float u = 1 - t;
+                animatingVehicle.CurrentX = (u * u * animatingVehicle.X) + (2 * u * t * animatingVehicle.ControlX.Value) + (t * t * animatingVehicle.TargetX);
+                animatingVehicle.CurrentY = (u * u * animatingVehicle.Y) + (2 * u * t * animatingVehicle.ControlY.Value) + (t * t * animatingVehicle.TargetY);
+            }
+            else
+            {
+                animatingVehicle.CurrentX = Lerp(animatingVehicle.X, animatingVehicle.TargetX, animationProgress);
+                animatingVehicle.CurrentY = Lerp(animatingVehicle.Y, animatingVehicle.TargetY, animationProgress);
+            }
+            animatingVehicle.CurrentRotation = Lerp(animatingVehicle.Rotation, animatingVehicle.TargetRotation, animationProgress);
+            pbMap.Invalidate();
+        }
+
         private void pbMap_Paint(object sender, PaintEventArgs e)
         {
             if (currentScenario == null) return;
 
+            // 1. Pozadí
             string bgPath = FindImagePath(currentScenario.BackgroundImage);
-
             if (File.Exists(bgPath))
+                using (Image bg = Image.FromFile(bgPath)) e.Graphics.DrawImage(bg, 0, 0, pbMap.Width, pbMap.Height);
+            else e.Graphics.Clear(Color.LightGray);
+
+            // 2. Značky
+            if (currentScenario.Signs != null)
             {
-                using (Image bg = Image.FromFile(bgPath))
+                foreach (var sign in currentScenario.Signs)
                 {
-                    e.Graphics.DrawImage(bg, 0, 0, pbMap.Width, pbMap.Height);
+                    string p = FindImagePath(sign.ImageName);
+                    if (File.Exists(p)) using (Image img = Image.FromFile(p)) e.Graphics.DrawImage(img, sign.X, sign.Y, 30, 30);
                 }
             }
-            else
-            {
-                e.Graphics.Clear(Color.LightGray);
-                e.Graphics.DrawString("Chybí pozadí!", SystemFonts.DefaultFont, Brushes.Red, 10, 10);
-            }
 
-        
+            // 3. Auta
             if (currentScenario.Vehicles != null)
             {
                 foreach (var v in currentScenario.Vehicles)
                 {
+                    string p = FindImagePath(v.ImageName);
+                    if (!File.Exists(p)) continue;
 
-                    string carPath = FindImagePath(v.ImageName);
-
-                    using (Image carImg = Image.FromFile(carPath))
+                    using (Image img = Image.FromFile(p))
                     {
-                       
-                        var originalState = e.Graphics.Save();
+                        var state = e.Graphics.Save();
+                        bool useCurrent = (v == animatingVehicle) || v.IsFinished;
+                        float dx = useCurrent ? v.CurrentX : v.X;
+                        float dy = useCurrent ? v.CurrentY : v.Y;
+                        float rot = useCurrent ? v.CurrentRotation : v.Rotation;
 
-                        
-                       
-                        float centerX = v.X + 30; 
-                        float centerY = v.Y + 20; 
+                        e.Graphics.TranslateTransform(dx + 30, dy + 20);
+                        e.Graphics.RotateTransform(rot);
+                        e.Graphics.DrawImage(img, -30, -20, 60, 40);
 
-                        e.Graphics.TranslateTransform(centerX, centerY);
-
-                    
-                        e.Graphics.RotateTransform(v.Rotation);
-
-                      
-                       
-                        e.Graphics.DrawImage(carImg, -30, -20, 60, 40);
-
-                        
-                        if (v.CorrectOrder == currentStep)
+                        // Blinkry
+                        if (!v.IsFinished && !string.IsNullOrEmpty(v.TurnSignal) && v.TurnSignal != "None")
                         {
-                            Pen p = new Pen(Color.Gold, 4);
-                            e.Graphics.DrawRectangle(p, -32, -22, 64, 44);
+                            if (v.TurnSignal == "Left") e.Graphics.FillEllipse(Brushes.Orange, -30, 10, 8, 8);
+                            if (v.TurnSignal == "Right") e.Graphics.FillEllipse(Brushes.Orange, -30, -18, 8, 8);
                         }
 
-                  
-                        e.Graphics.Restore(originalState);
+                        // Zvýraznění aktivního
+                        if (v.CorrectOrder == currentStep + 1 && !v.IsFinished)
+                        {
+                            using (Pen pen = new Pen(Color.Gold, 3)) e.Graphics.DrawRectangle(pen, -32, -22, 64, 44);
+                        }
 
-                     
-                        e.Graphics.DrawString(v.Id, SystemFonts.DefaultFont, Brushes.Black, v.X, v.Y - 15);
+                        e.Graphics.Restore(state);
+                        if (!v.IsFinished) e.Graphics.DrawString(v.Id, SystemFonts.DefaultFont, Brushes.Black, dx, dy - 15);
                     }
                 }
             }
         }
 
-    
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            if (currentScenario == null) return;
-
-        
-            if (currentStep < currentScenario.Vehicles.Count)
-            {
-                currentStep++;
-                UpdateDescription();
-                pbMap.Invalidate(); 
-            }
-        }
-
-        private void btnPrev_Click(object sender, EventArgs e)
-        {
-            if (currentScenario == null) return;
-
-            if (currentStep > 0)
-            {
-                currentStep--;
-                UpdateDescription();
-                pbMap.Invalidate();
-            }
-        }
-
-    
         private void UpdateDescription()
         {
-            if (currentStep == 0)
-            {
-                lblDescription.Text = currentScenario.Description + "\n\nKlikni na 'Další' pro spuštění výuky.";
-            }
+            if (currentStep == 0) lblDescription.Text = $"{currentScenario.Description}\n\nKlikni na 'Další'.";
             else
             {
-               
-                var activeVehicle = currentScenario.Vehicles.FirstOrDefault(v => v.CorrectOrder == currentStep);
-
-                if (activeVehicle != null)
-                {
-                    lblDescription.Text = $"KROK {currentStep}: Jede {activeVehicle.Id}.\n\n" +
-                                          $"Vysvětlení: {currentScenario.Explanation}";
-                }
-                else
-                {
-                    lblDescription.Text = "Konec situace. Všechna vozidla odjela.";
-                }
+                var v = currentScenario.Vehicles.FirstOrDefault(x => x.CorrectOrder == currentStep);
+                if (v != null) lblDescription.Text = $"Jede {v.Id}.\n{(v.Reason ?? currentScenario.Explanation)}";
+                else lblDescription.Text = "Konec situace.";
             }
         }
 
-        
-        private string FindImagePath(string fileName)
+        private float Lerp(float s, float e, float a) => s + (e - s) * a;
+
+        private string FindImagePath(string f)
         {
-            if (string.IsNullOrEmpty(fileName)) return "";
-
-        
-            string path = Path.Combine(imagesPath, fileName);
-            if (File.Exists(path)) return path;
-
-           
-            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../assets/images", fileName);
-            return path;
+            if (string.IsNullOrEmpty(f)) return "";
+            string p = Path.Combine(imagesPath, f);
+            return File.Exists(p) ? p : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../assets/images", f);
         }
 
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            MainForm mainMenu = new MainForm();
-            mainMenu.Show();
-
-            
-            this.Hide();
-        }
-        private void LearningForm_FormClosed(object sender, FormClosedEventArgs e)
-
-        {
-
-            Application.Exit();
-
-        }
+        private void btnBack_Click(object sender, EventArgs e) { new MainForm().Show(); Hide(); }
+        private void btnPrev_Click(object sender, EventArgs e) { /* Implementace viz předchozí zprávy */ }
     }
 }

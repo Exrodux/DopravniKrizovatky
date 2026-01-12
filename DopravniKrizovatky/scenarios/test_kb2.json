@@ -4,20 +4,34 @@
   "Description": "Testování vykreslování.",
   "Explanation": "Červené auto jede první (má přednost).",
   "BackgroundImage": "krizovatka_t.png",
+  
+  "Signs": [],
+
   "Vehicles": [
     {
       "Id": "Červené auto",
       "ImageName": "car_red.png",
       "X": 280, "Y": 15,
+      "Rotation": 0,
       "CorrectOrder": 1,
-	  "Rotation": 0
+      
+      "TurnSignal": "None",
+      "Reason": "Jede rovně po hlavní.",
+      
+      "TargetX": -150, "TargetY": 15, "TargetRotation": 0
     },
     {
       "Id": "Modré auto",
       "ImageName": "car_blue.png",
       "X": 230, "Y": 70,
+      "Rotation": 90,
       "CorrectOrder": 2,
-	  "Rotation": 90
+      
+      "TurnSignal": "Left",
+      "Reason": "Dává přednost zprava.",
+      
+      "TargetX": -150, "TargetY": 70, "TargetRotation": 0,
+      "ControlX": 230, "ControlY": 15
     }
   ]
 }

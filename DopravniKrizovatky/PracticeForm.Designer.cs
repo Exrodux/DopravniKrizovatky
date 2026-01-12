@@ -31,8 +31,10 @@
             this.btnBack = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
-            this.lstVehicles = new System.Windows.Forms.ListBox();
             this.btnLoadScenario = new System.Windows.Forms.Button();
+            this.pbMap = new System.Windows.Forms.PictureBox();
+            this.lblScore = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMap)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBack
@@ -61,14 +63,6 @@
             this.lblDescription.Size = new System.Drawing.Size(0, 13);
             this.lblDescription.TabIndex = 2;
             // 
-            // lstVehicles
-            // 
-            this.lstVehicles.FormattingEnabled = true;
-            this.lstVehicles.Location = new System.Drawing.Point(344, 95);
-            this.lstVehicles.Name = "lstVehicles";
-            this.lstVehicles.Size = new System.Drawing.Size(185, 134);
-            this.lstVehicles.TabIndex = 3;
-            // 
             // btnLoadScenario
             // 
             this.btnLoadScenario.Location = new System.Drawing.Point(12, 326);
@@ -79,14 +73,35 @@
             this.btnLoadScenario.UseVisualStyleBackColor = true;
             this.btnLoadScenario.Click += new System.EventHandler(this.btnLoadScenario_Click);
             // 
+            // pbMap
+            // 
+            this.pbMap.Location = new System.Drawing.Point(38, 25);
+            this.pbMap.Name = "pbMap";
+            this.pbMap.Size = new System.Drawing.Size(493, 177);
+            this.pbMap.TabIndex = 5;
+            this.pbMap.TabStop = false;
+            this.pbMap.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMap_Paint);
+            this.pbMap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMap_MouseClick);
+            // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblScore.Location = new System.Drawing.Point(34, 208);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(89, 20);
+            this.lblScore.TabIndex = 6;
+            this.lblScore.Text = "Body: 100";
+            // 
             // PracticeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.lblScore);
+            this.Controls.Add(this.pbMap);
             this.Controls.Add(this.btnLoadScenario);
-            this.Controls.Add(this.lstVehicles);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnBack);
@@ -95,6 +110,7 @@
             this.MinimizeBox = false;
             this.Name = "PracticeForm";
             this.Text = "Procvičování";
+            ((System.ComponentModel.ISupportInitialize)(this.pbMap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,7 +121,8 @@
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.ListBox lstVehicles;
         private System.Windows.Forms.Button btnLoadScenario;
+        private System.Windows.Forms.PictureBox pbMap;
+        private System.Windows.Forms.Label lblScore;
     }
 }
