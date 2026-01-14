@@ -15,7 +15,7 @@ namespace DopravniKrizovatky
 
         private int currentStep = 0;
 
-        // Animace
+        
         private Timer animationTimer;
         private Vehicle animatingVehicle = null;
         private float animationProgress = 0f;
@@ -25,14 +25,22 @@ namespace DopravniKrizovatky
         {
             InitializeComponent();
 
-            // DoubleBuffering (proti blikání)
+           
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
             this.DoubleBuffered = true;
-            this.FormClosed += (s, e) => Application.Exit();
+
+           
+            this.FormClosed += LearningForm_FormClosed;
 
             animationTimer = new Timer();
             animationTimer.Interval = 20;
             animationTimer.Tick += AnimationTimer_Tick;
+        }
+
+       
+        private void LearningForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            new MainForm().Show();
         }
 
         private void btnLoadScenario_Click(object sender, EventArgs e)
@@ -54,7 +62,7 @@ namespace DopravniKrizovatky
                 string json = File.ReadAllText(files[random.Next(files.Length)]);
                 currentScenario = JsonSerializer.Deserialize<Scenario>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-                // Reset
+               
                 currentStep = 0;
                 animationTimer.Stop();
                 animatingVehicle = null;
@@ -82,7 +90,6 @@ namespace DopravniKrizovatky
 
             if (vehicleToMove != null && !vehicleToMove.IsFinished)
             {
-                // Start animace
                 animatingVehicle = vehicleToMove;
                 animatingVehicle.CurrentX = animatingVehicle.X;
                 animatingVehicle.CurrentY = animatingVehicle.Y;
@@ -119,7 +126,6 @@ namespace DopravniKrizovatky
                 return;
             }
 
-            // Výpočet pozice (Bézier vs Lineární)
             if (animatingVehicle.ControlX.HasValue && animatingVehicle.ControlY.HasValue)
             {
                 float t = animationProgress;
@@ -140,13 +146,11 @@ namespace DopravniKrizovatky
         {
             if (currentScenario == null) return;
 
-            // 1. Pozadí
             string bgPath = FindImagePath(currentScenario.BackgroundImage);
             if (File.Exists(bgPath))
                 using (Image bg = Image.FromFile(bgPath)) e.Graphics.DrawImage(bg, 0, 0, pbMap.Width, pbMap.Height);
             else e.Graphics.Clear(Color.LightGray);
 
-            // 2. Značky
             if (currentScenario.Signs != null)
             {
                 foreach (var sign in currentScenario.Signs)
@@ -156,7 +160,6 @@ namespace DopravniKrizovatky
                 }
             }
 
-            // 3. Auta
             if (currentScenario.Vehicles != null)
             {
                 foreach (var v in currentScenario.Vehicles)
@@ -176,14 +179,12 @@ namespace DopravniKrizovatky
                         e.Graphics.RotateTransform(rot);
                         e.Graphics.DrawImage(img, -30, -20, 60, 40);
 
-                        // Blinkry
                         if (!v.IsFinished && !string.IsNullOrEmpty(v.TurnSignal) && v.TurnSignal != "None")
                         {
                             if (v.TurnSignal == "Left") e.Graphics.FillEllipse(Brushes.Orange, -30, 10, 8, 8);
                             if (v.TurnSignal == "Right") e.Graphics.FillEllipse(Brushes.Orange, -30, -18, 8, 8);
                         }
 
-                        // Zvýraznění aktivního
                         if (v.CorrectOrder == currentStep + 1 && !v.IsFinished)
                         {
                             using (Pen pen = new Pen(Color.Gold, 3)) e.Graphics.DrawRectangle(pen, -32, -22, 64, 44);
@@ -216,7 +217,34 @@ namespace DopravniKrizovatky
             return File.Exists(p) ? p : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../assets/images", f);
         }
 
-        private void btnBack_Click(object sender, EventArgs e) { new MainForm().Show(); Hide(); }
-        private void btnPrev_Click(object sender, EventArgs e) { /* Implementace viz předchozí zprávy */ }
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            new MainForm().Show();
+            Hide();
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentScenario == null || animationTimer.Enabled) return;
+
+            if (currentStep > 0)
+            {
+                
+                currentStep--;
+
+                var vehicleToReset = currentScenario.Vehicles.FirstOrDefault(v => v.CorrectOrder == currentStep + 1);
+
+                if (vehicleToReset != null)
+                {
+                    vehicleToReset.IsFinished = false;
+                    vehicleToReset.CurrentX = vehicleToReset.X;
+                    vehicleToReset.CurrentY = vehicleToReset.Y;
+                    vehicleToReset.CurrentRotation = vehicleToReset.Rotation;
+                }
+
+                UpdateDescription();
+                pbMap.Invalidate();
+            }
+        }
     }
 }

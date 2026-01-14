@@ -39,43 +39,65 @@
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(497, 326);
+            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBack.FlatAppearance.BorderSize = 0;
+            this.btnBack.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(40)))), ((int)(((byte)(50)))));
+            this.btnBack.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Location = new System.Drawing.Point(450, 310);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.Size = new System.Drawing.Size(100, 35);
             this.btnBack.TabIndex = 0;
-            this.btnBack.Text = "Zpět";
-            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Text = "ZPĚT";
+            this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(60, 62);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblTitle.ForeColor = System.Drawing.Color.Gold;
+            this.lblTitle.Location = new System.Drawing.Point(34, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(0, 13);
+            this.lblTitle.Size = new System.Drawing.Size(0, 21);
             this.lblTitle.TabIndex = 1;
             // 
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(60, 228);
+            this.lblDescription.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblDescription.ForeColor = System.Drawing.Color.White;
+            this.lblDescription.Location = new System.Drawing.Point(34, 250);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(0, 13);
+            this.lblDescription.Size = new System.Drawing.Size(0, 19);
             this.lblDescription.TabIndex = 2;
             // 
             // btnLoadScenario
             // 
-            this.btnLoadScenario.Location = new System.Drawing.Point(12, 326);
+            this.btnLoadScenario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnLoadScenario.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLoadScenario.FlatAppearance.BorderSize = 0;
+            this.btnLoadScenario.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(150)))));
+            this.btnLoadScenario.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(150)))), ((int)(((byte)(255)))));
+            this.btnLoadScenario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoadScenario.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnLoadScenario.ForeColor = System.Drawing.Color.White;
+            this.btnLoadScenario.Location = new System.Drawing.Point(38, 310);
             this.btnLoadScenario.Name = "btnLoadScenario";
-            this.btnLoadScenario.Size = new System.Drawing.Size(100, 23);
+            this.btnLoadScenario.Size = new System.Drawing.Size(120, 35);
             this.btnLoadScenario.TabIndex = 4;
-            this.btnLoadScenario.Text = "Načíst scénář";
-            this.btnLoadScenario.UseVisualStyleBackColor = true;
+            this.btnLoadScenario.Text = "NAČÍST SCÉNÁŘ";
+            this.btnLoadScenario.UseVisualStyleBackColor = false;
             this.btnLoadScenario.Click += new System.EventHandler(this.btnLoadScenario_Click);
             // 
             // pbMap
             // 
-            this.pbMap.Location = new System.Drawing.Point(38, 25);
+            this.pbMap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.pbMap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbMap.Location = new System.Drawing.Point(38, 35);
             this.pbMap.Name = "pbMap";
             this.pbMap.Size = new System.Drawing.Size(493, 177);
             this.pbMap.TabIndex = 5;
@@ -86,18 +108,19 @@
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblScore.Location = new System.Drawing.Point(34, 208);
+            this.lblScore.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblScore.ForeColor = System.Drawing.Color.Gold;
+            this.lblScore.Location = new System.Drawing.Point(34, 218);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(89, 20);
+            this.lblScore.Size = new System.Drawing.Size(107, 25);
             this.lblScore.TabIndex = 6;
-            this.lblScore.Text = "Body: 100";
+            this.lblScore.Text = "BODY: 100";
             // 
             // PracticeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(584, 361);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.pbMap);
@@ -109,7 +132,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PracticeForm";
-            this.Text = "Procvičování";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Procvičování křižovatek";
             ((System.ComponentModel.ISupportInitialize)(this.pbMap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

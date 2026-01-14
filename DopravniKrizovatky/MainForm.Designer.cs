@@ -36,52 +36,75 @@
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblTitle.Location = new System.Drawing.Point(53, 36);
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblTitle.ForeColor = System.Drawing.Color.Gold;
+            this.lblTitle.Location = new System.Drawing.Point(0, 30);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(462, 55);
+            this.lblTitle.Size = new System.Drawing.Size(584, 55);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Dopravní křižovatky";
+            this.lblTitle.Text = "DOPRAVNÍ KŘIŽOVATKY";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnLearning
             // 
-            this.btnLearning.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnLearning.Location = new System.Drawing.Point(231, 137);
+            this.btnLearning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnLearning.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLearning.FlatAppearance.BorderSize = 0;
+            this.btnLearning.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(150)))));
+            this.btnLearning.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(150)))), ((int)(((byte)(255)))));
+            this.btnLearning.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLearning.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnLearning.ForeColor = System.Drawing.Color.White;
+            this.btnLearning.Location = new System.Drawing.Point(192, 130);
             this.btnLearning.Name = "btnLearning";
-            this.btnLearning.Size = new System.Drawing.Size(117, 32);
+            this.btnLearning.Size = new System.Drawing.Size(200, 50);
             this.btnLearning.TabIndex = 1;
-            this.btnLearning.Text = "Výuka";
-            this.btnLearning.UseVisualStyleBackColor = true;
+            this.btnLearning.Text = "VÝUKA";
+            this.btnLearning.UseVisualStyleBackColor = false;
             this.btnLearning.Click += new System.EventHandler(this.btnLearning_Click);
             // 
             // btnPractice
             // 
-            this.btnPractice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnPractice.Location = new System.Drawing.Point(231, 190);
+            this.btnPractice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btnPractice.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPractice.FlatAppearance.BorderSize = 0;
+            this.btnPractice.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(120)))), ((int)(((byte)(50)))));
+            this.btnPractice.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(200)))), ((int)(((byte)(80)))));
+            this.btnPractice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPractice.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnPractice.ForeColor = System.Drawing.Color.White;
+            this.btnPractice.Location = new System.Drawing.Point(192, 200);
             this.btnPractice.Name = "btnPractice";
-            this.btnPractice.Size = new System.Drawing.Size(117, 32);
+            this.btnPractice.Size = new System.Drawing.Size(200, 50);
             this.btnPractice.TabIndex = 2;
-            this.btnPractice.Text = "Procvičování";
-            this.btnPractice.UseVisualStyleBackColor = true;
+            this.btnPractice.Text = "PROCVIČOVÁNÍ";
+            this.btnPractice.UseVisualStyleBackColor = false;
             this.btnPractice.Click += new System.EventHandler(this.btnPractice_Click);
             // 
             // btnExit
             // 
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnExit.Location = new System.Drawing.Point(231, 241);
+            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(40)))), ((int)(((byte)(50)))));
+            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnExit.ForeColor = System.Drawing.Color.White;
+            this.btnExit.Location = new System.Drawing.Point(192, 270);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(117, 31);
+            this.btnExit.Size = new System.Drawing.Size(200, 50);
             this.btnExit.TabIndex = 3;
-            this.btnExit.Text = "Konec";
-            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Text = "KONEC";
+            this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(584, 361);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnPractice);
@@ -89,12 +112,10 @@
             this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Dopravní Křizovatky";
+            this.Text = "Dopravní Křižovatky";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -106,4 +127,3 @@
         private System.Windows.Forms.Button btnExit;
     }
 }
-

@@ -23,20 +23,6 @@ namespace DopravniKrizovatky
             InitializeComponent();
         }
 
-        private void LoadScenario(string path)
-        {
-            //string json = File.ReadAllText(path);
-            //currentScenario = JsonSerializer.Deserialize<Scenario>(json);
-
-            //lblTitle.Text = currentScenario.Title;
-            //lblDescription.Text = currentScenario.Description;
-            //listVehicles.Items.Clear();
-
-            //foreach (var v in currentScenario.Vehicles)
-            //{
-            //    listVehicles.Items.Add($"{v.Id} – {v.Approach} ({v.Direction})");
-            //}
-        }
 
         private void btnLearning_Click(object sender, EventArgs e)
         {
