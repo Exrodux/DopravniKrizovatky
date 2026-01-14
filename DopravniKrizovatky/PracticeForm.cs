@@ -65,9 +65,9 @@ namespace DopravniKrizovatky
                 }
                 lblTitle.Text = currentScenario.Title;
 
-                // --- OPRAVA ZDE ---
+             
                 lblDescription.Text = "Klikni na vozidlo, které má přednost.";
-                lblDescription.ForeColor = Color.White; // Bylo Black, teď White pro Dark Mode
+                lblDescription.ForeColor = Color.White; 
 
                 if (lblScore != null) lblScore.Text = "Body: 100";
                 pbMap.Invalidate();
@@ -93,7 +93,7 @@ namespace DopravniKrizovatky
             if (v.CorrectOrder == currentStep + 1)
             {
                 lblDescription.Text = "Správně! Vozidlo odjíždí.";
-                lblDescription.ForeColor = Color.Lime; // Světle zelená je na tmavém lepší než tmavá Green
+                lblDescription.ForeColor = Color.Lime; 
 
                 animatingVehicle = v;
                 animatingVehicle.CurrentX = v.X; animatingVehicle.CurrentY = v.Y; animatingVehicle.CurrentRotation = v.Rotation;
@@ -105,7 +105,7 @@ namespace DopravniKrizovatky
             {
                 score = Math.Max(0, score - 20);
                 lblDescription.Text = "Chyba! Nedal jsi přednost.";
-                lblDescription.ForeColor = Color.Red; // Červená je ok
+                lblDescription.ForeColor = Color.Red; 
             }
             if (lblScore != null) lblScore.Text = $"Body: {score}";
         }
@@ -123,13 +123,13 @@ namespace DopravniKrizovatky
                 if (currentStep >= currentScenario.Vehicles.Count)
                 {
                     lblDescription.Text = "Křižovatka je volná. Výborně!";
-                    lblDescription.ForeColor = Color.Cyan; // Světle modrá pro vítězství
+                    lblDescription.ForeColor = Color.Cyan; 
                 }
                 else
                 {
                     lblDescription.Text = "Kdo jede dál?";
-                    // --- OPRAVA ZDE ---
-                    lblDescription.ForeColor = Color.White; // Zde se to vracelo na černou
+                    
+                    lblDescription.ForeColor = Color.White; 
                 }
                 pbMap.Invalidate(); return;
             }
