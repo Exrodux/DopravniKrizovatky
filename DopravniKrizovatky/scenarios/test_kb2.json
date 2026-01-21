@@ -7,7 +7,7 @@
   
   "Signs": [
      { "ImageName": "znacka_hlavni.png", "X": 260, "Y": 50 },
-     { "ImageName": "znacka_dej_prednost.png", "X": 200, "Y": 80 }
+     { "ImageName": "dej_prednost.jpg", "X": 285, "Y": 60 }
   ],
 
   "Vehicles": [
