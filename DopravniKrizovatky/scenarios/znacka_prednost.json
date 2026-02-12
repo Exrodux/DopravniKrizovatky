@@ -1,0 +1,40 @@
+{
+  "Id": "KB2-Test",
+  "Title": "Grafický test",
+  "Description": "Testování vykreslování s animací.",
+  "Explanation": "Červené auto jede rovně, modré odbočuje vlevo.",
+  "BackgroundImage": "krizovatka_t.png",
+  
+  "Signs": [
+     { "ImageName": "znacka_hlavni.png", "X": 260, "Y": 50 },
+     { "ImageName": "dej_prednost.jpg", "X": 285, "Y": 60 }
+  ],
+
+  "Vehicles": [
+    {
+      "Id": "Červené auto",
+      "ImageName": "car_red.png",
+      "X": 280, "Y": 15,
+      "Rotation": 0,
+      "CorrectOrder": 1,
+      
+      "TurnSignal": "None",
+      "Reason": "Jede rovně po hlavní silnici.",
+      
+      "TargetX": -150, "TargetY": 15, "TargetRotation": 0
+    },
+    {
+      "Id": "Modré auto",
+      "ImageName": "car_blue.png",
+      "X": 230, "Y": 70,
+      "Rotation": 90,
+      "CorrectOrder": 2,
+      
+      "TurnSignal": "Left",
+      "Reason": "Dává přednost zprava a odbočuje.",
+      
+      "TargetX": -150, "TargetY": 10, "TargetRotation": 0,
+      "ControlX": 240, "ControlY": 15
+    }
+  ]
+}

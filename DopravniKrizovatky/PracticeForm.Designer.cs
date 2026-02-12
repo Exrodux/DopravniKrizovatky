@@ -112,9 +112,9 @@
             this.lblScore.ForeColor = System.Drawing.Color.Gold;
             this.lblScore.Location = new System.Drawing.Point(34, 218);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(107, 25);
+            this.lblScore.Size = new System.Drawing.Size(101, 25);
             this.lblScore.TabIndex = 6;
-            this.lblScore.Text = "BODY: 100";
+            this.lblScore.Text = "Body: 100";
             // 
             // PracticeForm
             // 

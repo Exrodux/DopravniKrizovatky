@@ -17,7 +17,7 @@ namespace DopravniKrizovatky
         public List<TrafficSign> Signs { get; set; } // Seznam značek
     }
 
-    // Třída pro dopravní značku
+
     public class TrafficSign
     {
         public string ImageName { get; set; }
@@ -25,34 +25,33 @@ namespace DopravniKrizovatky
         public int Y { get; set; }
     }
 
-    // Třída pro vozidlo
+
     public class Vehicle
     {
         public string Id { get; set; }
         public string Type { get; set; }
 
-        // Startovní pozice
+      
         public int X { get; set; }
         public int Y { get; set; }
         public int Rotation { get; set; }
         public string ImageName { get; set; }
 
-        // Logika průjezdu
+        
         public int CorrectOrder { get; set; }
-        public string TurnSignal { get; set; } // "Left", "Right", "None"
-        public string Reason { get; set; }     // Vysvětlení pro konkrétní auto
+        public string TurnSignal { get; set; } 
+        public string Reason { get; set; }    
 
-        // --- ANIMACE (CÍL) ---
+    
         public int TargetX { get; set; }
         public int TargetY { get; set; }
         public int TargetRotation { get; set; }
 
-        // --- ZATÁČENÍ (Bézierův bod) ---
-        // Pokud jsou null, jede auto rovně. Pokud jsou vyplněné, jede obloukem.
+
         public int? ControlX { get; set; }
         public int? ControlY { get; set; }
 
-        // --- PROMĚNNÉ PRO BĚH APLIKACE (neukládají se do JSON) ---
+
         [JsonIgnore]
         public float CurrentX { get; set; }
         [JsonIgnore]
@@ -60,6 +59,6 @@ namespace DopravniKrizovatky
         [JsonIgnore]
         public float CurrentRotation { get; set; }
         [JsonIgnore]
-        public bool IsFinished { get; set; } // Zda už auto odjelo
+        public bool IsFinished { get; set; } 
     }
 }
