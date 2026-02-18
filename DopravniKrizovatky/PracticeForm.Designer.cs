@@ -34,6 +34,7 @@
             this.btnLoadScenario = new System.Windows.Forms.Button();
             this.pbMap = new System.Windows.Forms.PictureBox();
             this.lblScore = new System.Windows.Forms.Label();
+            this.btnHistory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbMap)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,7 +100,7 @@
             this.pbMap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbMap.Location = new System.Drawing.Point(38, 35);
             this.pbMap.Name = "pbMap";
-            this.pbMap.Size = new System.Drawing.Size(493, 177);
+            this.pbMap.Size = new System.Drawing.Size(489, 155);
             this.pbMap.TabIndex = 5;
             this.pbMap.TabStop = false;
             this.pbMap.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMap_Paint);
@@ -116,12 +117,26 @@
             this.lblScore.TabIndex = 6;
             this.lblScore.Text = "Body: 100";
             // 
+            // btnHistory
+            // 
+            this.btnHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnHistory.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnHistory.ForeColor = System.Drawing.Color.White;
+            this.btnHistory.Location = new System.Drawing.Point(439, 214);
+            this.btnHistory.Name = "btnHistory";
+            this.btnHistory.Size = new System.Drawing.Size(88, 39);
+            this.btnHistory.TabIndex = 0;
+            this.btnHistory.Text = "HISTORIE BODŮ";
+            this.btnHistory.UseVisualStyleBackColor = false;
+            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
+            // 
             // PracticeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.btnHistory);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.pbMap);
             this.Controls.Add(this.btnLoadScenario);
@@ -148,5 +163,6 @@
         private System.Windows.Forms.Button btnLoadScenario;
         private System.Windows.Forms.PictureBox pbMap;
         private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.Button btnHistory;
     }
 }

@@ -1,40 +1,40 @@
 {
-  "Id": "KB2-Test",
-  "Title": "Grafický test",
-  "Description": "Testování vykreslování s animací.",
+  "Id": "Prednost",
+  "Title": "Značka dej přednost v jízdě",
+  "Description": "Červené auto jede po hlavní, modré musí počkat.",
   "Explanation": "Červené auto jede rovně, modré odbočuje vlevo.",
   "BackgroundImage": "krizovatka_t.png",
   
   "Signs": [
-     { "ImageName": "znacka_hlavni.png", "X": 260, "Y": 50 },
-     { "ImageName": "dej_prednost.jpg", "X": 285, "Y": 60 }
+     { "ImageName": "znacka_hlavni.png", "X": 265, "Y": 0 },
+     { "ImageName": "znacka_dej_prednost.png", "X": 280, "Y": 90 }
   ],
 
   "Vehicles": [
     {
       "Id": "Červené auto",
       "ImageName": "car_red.png",
-      "X": 280, "Y": 15,
+      "X": 300, "Y": 38,
       "Rotation": 0,
       "CorrectOrder": 1,
       
       "TurnSignal": "None",
       "Reason": "Jede rovně po hlavní silnici.",
       
-      "TargetX": -150, "TargetY": 15, "TargetRotation": 0
+      "TargetX": -60, "TargetY": 38, "TargetRotation": 0
     },
     {
       "Id": "Modré auto",
       "ImageName": "car_blue.png",
-      "X": 230, "Y": 70,
+      "X": 235, "Y": 100,
       "Rotation": 90,
       "CorrectOrder": 2,
       
       "TurnSignal": "Left",
       "Reason": "Dává přednost zprava a odbočuje.",
       
-      "TargetX": -150, "TargetY": 10, "TargetRotation": 0,
-      "ControlX": 240, "ControlY": 15
+      "TargetX": -60, "TargetY": 38, "TargetRotation": 0,
+      "ControlX": 240, "ControlY": 30
     }
   ]
 }

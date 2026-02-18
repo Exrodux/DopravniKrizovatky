@@ -1,0 +1,51 @@
+{
+  "Id": "scenar_tramvaj",
+  "Title": "Křižovatka s tramvají",
+  "Description": "Hlavní silnice zahýbá. Tramvaj přijíždí z vedlejší.",
+  "Explanation": "Modré auto je na hlavní silnici (tvaru zatáčky). Tramvaj přijíždí z vedlejší, proto musí dát přednost, i když jede rovně.",
+  "BackgroundImage": "krizovatka_tram.png",
+  "Signs": [
+    { 
+      "ImageName": "znacka_hlavni.png", 
+      "X": 165, 
+      "Y": 80
+    },
+    { 
+      "ImageName": "znacka_dej_prednost.png", 
+      "X": 255, 
+      "Y": 10
+    }
+  ],
+  "Vehicles": [
+    {
+      "Id": "Modré auto",
+      "Type": "Car",
+      "X": 220, 
+      "Y": 90, 
+      "Rotation": 90,
+      "ImageName": "car_blue.png",
+      "CorrectOrder": 1,
+      "TurnSignal": "Left",
+      "Reason": "Jedeš po hlavní silnici, která zahýbá doprava.",
+      "TargetX": -60, 
+      "TargetY": 50, 
+      "TargetRotation":  0,
+      "ControlX": 240,
+      "ControlY": 40
+    },
+    {
+      "Id": "Tramvaj",
+      "Type": "Tram",
+      "X": 280, 
+      "Y": 45, 
+      "Rotation": 0,
+      "ImageName": "tram.png",
+      "CorrectOrder": 2,
+      "TurnSignal": "None",
+      "Reason": "Jsi na vedlejší silnici. Musíš pustit auto na hlavní.",
+      "TargetX": -100, 
+      "TargetY": 45, 
+      "TargetRotation": 0
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -33,6 +34,8 @@ namespace DopravniKrizovatky
             animationTimer.Interval = 20;
             animationTimer.Tick += AnimationTimer_Tick;
         }
+
+        
 
         private void PracticeForm_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -123,7 +126,10 @@ namespace DopravniKrizovatky
                 if (currentStep >= currentScenario.Vehicles.Count)
                 {
                     lblDescription.Text = "Křižovatka je volná. Výborně!";
-                    lblDescription.ForeColor = Color.Cyan; 
+                    lblDescription.ForeColor = Color.Cyan;
+
+                    SaveScoreToHistory();
+                    MessageBox.Show($"Křižovatka dokončena! Tvoje skóre: {score}\nVýsledek byl uložen do historie.", "Hotovo");
                 }
                 else
                 {
@@ -152,45 +158,77 @@ namespace DopravniKrizovatky
         private void pbMap_Paint(object sender, PaintEventArgs e)
         {
             if (currentScenario == null) return;
+
+            // 1. VYKRESLENÍ POZADÍ (na souřadnice 0, 0 přes celou mapu)
             string bgPath = FindImagePath(currentScenario.BackgroundImage);
-            if (File.Exists(bgPath)) using (Image bg = Image.FromFile(bgPath)) e.Graphics.DrawImage(bg, 0, 0, pbMap.Width, pbMap.Height);
+            if (File.Exists(bgPath))
+                using (Image bg = Image.FromFile(bgPath)) e.Graphics.DrawImage(bg, 0, 0, pbMap.Width, pbMap.Height);
             else e.Graphics.Clear(Color.LightGray);
 
+            // 2. VYKRESLENÍ ZNAČEK
             if (currentScenario.Signs != null)
             {
                 foreach (var sign in currentScenario.Signs)
                 {
                     string p = FindImagePath(sign.ImageName);
-                    if (File.Exists(p)) using (Image img = Image.FromFile(p)) e.Graphics.DrawImage(img, sign.X, sign.Y, 30, 30);
+                    if (File.Exists(p)) using (Image img = Image.FromFile(p)) e.Graphics.DrawImage(img, sign.X, sign.Y, 50, 50);
                 }
             }
 
+            // 3. VYKRESLENÍ VOZIDEL
             if (currentScenario.Vehicles != null)
             {
                 foreach (var v in currentScenario.Vehicles)
                 {
+                    // V Practice módu nekreslíme auta, která už odjela (kromě toho, co se právě hýbe)
                     if (v.IsFinished && v != animatingVehicle) continue;
+
                     string p = FindImagePath(v.ImageName);
                     if (!File.Exists(p)) continue;
 
                     using (Image img = Image.FromFile(p))
                     {
                         var state = e.Graphics.Save();
+
+                        // Určení aktuální polohy
                         bool useCurrent = (v == animatingVehicle) || v.IsFinished;
                         float dx = useCurrent ? v.CurrentX : v.X;
                         float dy = useCurrent ? v.CurrentY : v.Y;
                         float rot = useCurrent ? v.CurrentRotation : v.Rotation;
 
-                        e.Graphics.TranslateTransform(dx + 30, dy + 20);
-                        e.Graphics.RotateTransform(rot);
-                        e.Graphics.DrawImage(img, -30, -20, 60, 40);
+                        // --- TRANSFORMACE SOUŘADNIC AUTA (STŘED OTÁČENÍ) ---
+                        e.Graphics.TranslateTransform(dx + 30, dy + 20); // Posun na střed auta
+                        e.Graphics.RotateTransform(rot);                 // Otočení
+                        e.Graphics.DrawImage(img, -30, -20, 60, 40);     // Vykreslení (vycentrované)
 
+                        // --- BLINKRY (SOUŘADNICE, KTERÉ JSI CHTĚL) ---
                         if (!v.IsFinished && !string.IsNullOrEmpty(v.TurnSignal) && v.TurnSignal != "None")
                         {
-                            if (v.TurnSignal == "Left") e.Graphics.FillEllipse(Brushes.Orange, -30, 10, 8, 8);
-                            if (v.TurnSignal == "Right") e.Graphics.FillEllipse(Brushes.Orange, -30, -18, 8, 8);
+                            int blinkrX = -22;        // Pozice na délku
+                            int blinkrY_Left = -15;   // Pozice nahoře
+                            int blinkrY_Right = 7;    // Pozice dole
+                            int size = 6;             // Velikost
+
+                            if (v.TurnSignal == "Left")
+                                e.Graphics.FillEllipse(Brushes.Orange, blinkrX, blinkrY_Right, size, size);
+
+                            if (v.TurnSignal == "Right")
+                                e.Graphics.FillEllipse(Brushes.Orange, blinkrX, blinkrY_Left, size, size);
                         }
+
                         e.Graphics.Restore(state);
+
+                        // --- TEXT NAD AUTEM (BÍLÝ S ČERNÝM STÍNEM) ---
+                        if (!v.IsFinished)
+                        {
+                            using (Font font = new Font("Arial", 10, FontStyle.Bold))
+                            {
+                                // Stín (černý, posunutý o pixel)
+                                e.Graphics.DrawString(v.Id, font, Brushes.Black, dx + 1, dy - 14);
+                                // Hlavní text (bílý)
+                                e.Graphics.DrawString(v.Id, font, Brushes.White, dx, dy - 15);
+                            }
+                        }
                     }
                 }
             }
@@ -210,5 +248,61 @@ namespace DopravniKrizovatky
             new MainForm().Show();
             Hide();
         }
+
+        private void SaveScoreToHistory()
+        {
+            string filePath = "history.json";
+            List<ScoreRecord> history = new List<ScoreRecord>();
+
+            try
+            {
+                
+                if (File.Exists(filePath))
+                {
+                    string existingJson = File.ReadAllText(filePath);
+                    history = JsonSerializer.Deserialize<List<ScoreRecord>>(existingJson) ?? new List<ScoreRecord>();
+                }
+
+               
+                history.Add(new ScoreRecord
+                {
+                    Date = DateTime.Now,
+                    ScenarioTitle = currentScenario.Title,
+                    FinalScore = score
+                });
+
+                
+                string newJson = JsonSerializer.Serialize(history, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(filePath, newJson);
+            }
+            catch (Exception ex) { MessageBox.Show("Nepodařilo se uložit historii: " + ex.Message); }
+        }
+
+        private void btnHistory_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists("history.json"))
+            {
+                MessageBox.Show("Historie je zatím prázdná.");
+                return;
+            }
+
+            string json = File.ReadAllText("history.json");
+            var history = JsonSerializer.Deserialize<List<ScoreRecord>>(json);
+
+            string report = "Historie pokusů:\n\n";
+            foreach (var record in history.OrderByDescending(r => r.Date).Take(10)) // Posledních 10
+            {
+                report += $"{record.Date:dd.MM. HH:mm} - {record.ScenarioTitle}: {record.FinalScore} bodů\n";
+            }
+
+            MessageBox.Show(report, "Sledování úspěšnosti");
+        }
+    }
+
+    public class ScoreRecord
+    {
+        public DateTime Date { get; set; }
+        public string ScenarioTitle { get; set; }
+        public int FinalScore { get; set; }
     }
 }

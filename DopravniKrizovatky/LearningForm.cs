@@ -156,7 +156,7 @@ namespace DopravniKrizovatky
                 foreach (var sign in currentScenario.Signs)
                 {
                     string p = FindImagePath(sign.ImageName);
-                    if (File.Exists(p)) using (Image img = Image.FromFile(p)) e.Graphics.DrawImage(img, sign.X, sign.Y, 30, 30);
+                    if (File.Exists(p)) using (Image img = Image.FromFile(p)) e.Graphics.DrawImage(img, sign.X, sign.Y, 50, 50);
                 }
             }
 
@@ -181,8 +181,27 @@ namespace DopravniKrizovatky
 
                         if (!v.IsFinished && !string.IsNullOrEmpty(v.TurnSignal) && v.TurnSignal != "None")
                         {
-                            if (v.TurnSignal == "Left") e.Graphics.FillEllipse(Brushes.Orange, -30, 10, 8, 8);
-                            if (v.TurnSignal == "Right") e.Graphics.FillEllipse(Brushes.Orange, -30, -18, 8, 8);
+                            // --- NASTAVENÍ POZICE BLINKRŮ ---
+                            // Hraj si s těmito čísly, dokud to nebude sedět:
+
+                            // X: Kde je blinkr na délku? (blíž k -30 je zadek, blíž k 30 je předek)
+                            // Pokud je auto oříznuté těsně, zkus třeba -25 nebo 25.
+                            int blinkrX = -22; // Zkus změnit na -25, pokud máš blinkry vzadu
+
+                            // Y: Kde je blinkr na šířku? 
+                            // -20 je horní okraj, 20 je spodní okraj.
+                            int blinkrY_Left = -15;  // Levý blinkr (nahoře)
+                            int blinkrY_Right = 7;  // Pravý blinkr (dole)
+
+                            // Velikost kuličky (v pixelech)
+                            int size = 6;
+
+                            // Vykreslení
+                            if (v.TurnSignal == "Left")
+                                e.Graphics.FillEllipse(Brushes.Orange, blinkrX, blinkrY_Right, size, size);
+
+                            if (v.TurnSignal == "Right")
+                                e.Graphics.FillEllipse(Brushes.Orange, blinkrX, blinkrY_Left, size, size);
                         }
 
                         if (v.CorrectOrder == currentStep + 1 && !v.IsFinished)
@@ -191,7 +210,7 @@ namespace DopravniKrizovatky
                         }
 
                         e.Graphics.Restore(state);
-                        if (!v.IsFinished) e.Graphics.DrawString(v.Id, SystemFonts.DefaultFont, Brushes.Black, dx, dy - 15);
+                        if (!v.IsFinished) e.Graphics.DrawString(v.Id, SystemFonts.DefaultFont, Brushes.White, dx, dy - 15);
                     }
                 }
             }

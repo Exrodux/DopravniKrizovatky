@@ -1,0 +1,49 @@
+{
+  "Id": "scenar_semafor",
+  "Title": "Křižovatka se semafory",
+  "Description": "Křižovatka je řízena semafory. Modré vozidlo má zelenou.",
+  "Explanation": "Vozidlo se zeleným signálem (modré) má volno a projede křižovatkou jako první. Vozidlo s červeným signálem (červené) musí čekat.",
+  "BackgroundImage": "krizovatka_x.png",
+  "Signs": [
+    { 
+      "ImageName": "semafor_zelena.png", 
+      "X": 280, 
+      "Y": 70
+    },
+    { 
+      "ImageName": "semafor_cervena.png", 
+      "X": 160, 
+      "Y": 80
+    }
+  ],
+  "Vehicles": [
+    {
+      "Id": "Modré auto",
+      "Type": "Car",
+      "X": 235, 
+      "Y": 100, 
+      "Rotation": 90,
+      "ImageName": "car_blue.png",
+      "CorrectOrder": 1,
+      "TurnSignal": "None",
+      "Reason": "Svítí ti zelená. Můžeš jet.",
+      "TargetX": 235, 
+      "TargetY": -50, 
+      "TargetRotation": 90
+    },
+    {
+      "Id": "Červené auto",
+      "Type": "Car",
+      "X": 120, 
+      "Y": 60, 
+      "Rotation": 180,
+      "ImageName": "car_red.png",
+      "CorrectOrder": 2,
+      "TurnSignal": "None",
+      "Reason": "Červená skončila (naskočila zelená). Můžeš jet.",
+      "TargetX": 500, 
+      "TargetY": 60, 
+      "TargetRotation": 180
+    }
+  ]
+}
