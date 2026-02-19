@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnLearning = new System.Windows.Forms.Button();
             this.btnPractice = new System.Windows.Forms.Button();
@@ -36,12 +37,12 @@
             // 
             // lblTitle
             // 
-            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitle.BackColor = System.Drawing.Color.Black;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblTitle.ForeColor = System.Drawing.Color.Gold;
-            this.lblTitle.Location = new System.Drawing.Point(0, 30);
+            this.lblTitle.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lblTitle.Location = new System.Drawing.Point(101, 30);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(584, 55);
+            this.lblTitle.Size = new System.Drawing.Size(389, 55);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "DOPRAVNÍ KŘIŽOVATKY";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -105,11 +106,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 361);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnPractice);
             this.Controls.Add(this.btnLearning);
             this.Controls.Add(this.lblTitle);
+            this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";

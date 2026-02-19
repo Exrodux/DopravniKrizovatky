@@ -290,12 +290,17 @@ namespace DopravniKrizovatky
             var history = JsonSerializer.Deserialize<List<ScoreRecord>>(json);
 
             string report = "Historie pokusů:\n\n";
-            foreach (var record in history.OrderByDescending(r => r.Date).Take(10)) // Posledních 10
+            foreach (var record in history.OrderByDescending(r => r.Date).Take(10)) 
             {
                 report += $"{record.Date:dd.MM. HH:mm} - {record.ScenarioTitle}: {record.FinalScore} bodů\n";
             }
 
             MessageBox.Show(report, "Sledování úspěšnosti");
+        }
+
+        private void PracticeForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

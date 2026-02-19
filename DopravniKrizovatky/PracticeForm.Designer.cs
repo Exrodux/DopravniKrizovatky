@@ -35,6 +35,7 @@
             this.pbMap = new System.Windows.Forms.PictureBox();
             this.lblScore = new System.Windows.Forms.Label();
             this.btnHistory = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbMap)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,7 +99,7 @@
             // 
             this.pbMap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.pbMap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbMap.Location = new System.Drawing.Point(38, 35);
+            this.pbMap.Location = new System.Drawing.Point(38, 57);
             this.pbMap.Name = "pbMap";
             this.pbMap.Size = new System.Drawing.Size(489, 155);
             this.pbMap.TabIndex = 5;
@@ -111,7 +112,7 @@
             this.lblScore.AutoSize = true;
             this.lblScore.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblScore.ForeColor = System.Drawing.Color.Gold;
-            this.lblScore.Location = new System.Drawing.Point(34, 218);
+            this.lblScore.Location = new System.Drawing.Point(33, 228);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(101, 25);
             this.lblScore.TabIndex = 6;
@@ -122,7 +123,7 @@
             this.btnHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
             this.btnHistory.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnHistory.ForeColor = System.Drawing.Color.White;
-            this.btnHistory.Location = new System.Drawing.Point(439, 214);
+            this.btnHistory.Location = new System.Drawing.Point(439, 224);
             this.btnHistory.Name = "btnHistory";
             this.btnHistory.Size = new System.Drawing.Size(88, 39);
             this.btnHistory.TabIndex = 0;
@@ -130,12 +131,24 @@
             this.btnHistory.UseVisualStyleBackColor = false;
             this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(156, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(257, 45);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "PROCVIČOVÁNÍ";
+            // 
             // PracticeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnHistory);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.pbMap);
@@ -149,6 +162,7 @@
             this.Name = "PracticeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Procvičování křižovatek";
+            this.Load += new System.EventHandler(this.PracticeForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbMap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -164,5 +178,6 @@
         private System.Windows.Forms.PictureBox pbMap;
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Button btnHistory;
+        private System.Windows.Forms.Label label1;
     }
 }
