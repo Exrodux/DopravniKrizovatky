@@ -117,6 +117,17 @@ namespace DopravniKrizovatky
                 animationTimer.Stop();
                 animatingVehicle = null;
 
+                if (currentStep == 0 && currentScenario.Signs != null)
+                {
+                    foreach (var sign in currentScenario.Signs)
+                    {
+                        if (sign.ImageName.ToLower().Contains("zelena"))
+                            sign.ImageName = "semafor_cervena.png";
+                        else if (sign.ImageName.ToLower().Contains("cervena"))
+                            sign.ImageName = "semafor_zelena.png";
+                    }
+                }
+
                 if (currentStep < currentScenario.Vehicles.Count)
                 {
                     currentStep++;

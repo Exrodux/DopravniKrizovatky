@@ -123,23 +123,36 @@ namespace DopravniKrizovatky
                 animationProgress = 1.0f; animatingVehicle.IsFinished = true;
                 animationTimer.Stop(); animatingVehicle = null;
 
+                
+                if (currentStep == 1 && currentScenario.Signs != null)
+                {
+                    foreach (var sign in currentScenario.Signs)
+                    {
+                        if (sign.ImageName.ToLower().Contains("zelena"))
+                            sign.ImageName = "semafor_cervena.png";
+                        else if (sign.ImageName.ToLower().Contains("cervena"))
+                            sign.ImageName = "semafor_zelena.png";
+                    }
+                }
+                
+
                 if (currentStep >= currentScenario.Vehicles.Count)
                 {
                     lblDescription.Text = "Křižovatka je volná. Výborně!";
                     lblDescription.ForeColor = Color.Cyan;
 
-                    SaveScoreToHistory();
+                    SaveScoreToHistory(); // Sledování úspěšnosti
                     MessageBox.Show($"Křižovatka dokončena! Tvoje skóre: {score}\nVýsledek byl uložen do historie.", "Hotovo");
                 }
                 else
                 {
                     lblDescription.Text = "Kdo jede dál?";
-                    
-                    lblDescription.ForeColor = Color.White; 
+                    lblDescription.ForeColor = Color.White;
                 }
-                pbMap.Invalidate(); return;
+                pbMap.Invalidate(); return; // Překreslení scény s novými barvami semaforů
             }
 
+            // Výpočet pohybu (Bézierova křivka nebo Lerp)
             if (animatingVehicle.ControlX.HasValue && animatingVehicle.ControlY.HasValue)
             {
                 float t = animationProgress; float u = 1 - t;
@@ -159,13 +172,13 @@ namespace DopravniKrizovatky
         {
             if (currentScenario == null) return;
 
-            // 1. VYKRESLENÍ POZADÍ (na souřadnice 0, 0 přes celou mapu)
+          
             string bgPath = FindImagePath(currentScenario.BackgroundImage);
             if (File.Exists(bgPath))
                 using (Image bg = Image.FromFile(bgPath)) e.Graphics.DrawImage(bg, 0, 0, pbMap.Width, pbMap.Height);
             else e.Graphics.Clear(Color.LightGray);
 
-            // 2. VYKRESLENÍ ZNAČEK
+           
             if (currentScenario.Signs != null)
             {
                 foreach (var sign in currentScenario.Signs)
@@ -175,12 +188,12 @@ namespace DopravniKrizovatky
                 }
             }
 
-            // 3. VYKRESLENÍ VOZIDEL
+          
             if (currentScenario.Vehicles != null)
             {
                 foreach (var v in currentScenario.Vehicles)
                 {
-                    // V Practice módu nekreslíme auta, která už odjela (kromě toho, co se právě hýbe)
+                 
                     if (v.IsFinished && v != animatingVehicle) continue;
 
                     string p = FindImagePath(v.ImageName);
