@@ -123,7 +123,7 @@ namespace DopravniKrizovatky
                 animationProgress = 1.0f; animatingVehicle.IsFinished = true;
                 animationTimer.Stop(); animatingVehicle = null;
 
-                
+
                 if (currentStep == 1 && currentScenario.Signs != null)
                 {
                     foreach (var sign in currentScenario.Signs)
@@ -134,7 +134,7 @@ namespace DopravniKrizovatky
                             sign.ImageName = "semafor_zelena.png";
                     }
                 }
-                
+
 
                 if (currentStep >= currentScenario.Vehicles.Count)
                 {
