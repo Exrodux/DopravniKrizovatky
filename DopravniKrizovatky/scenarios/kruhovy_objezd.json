@@ -1,0 +1,31 @@
+{
+  "Title": "Kruhový objezd",
+  "Description": "Vjíždění na kruhový objezd.",
+  "Explanation": "Řidič vjíždějící na kruhový objezd označený značkami musí dát přednost vozidlům, která už po něm jedou.",
+  "BackgroundImage": "krizovatka_k.png",
+  "Vehicles": [
+    {
+      "Id": "Auto A",
+      "ImageName": "car_blue.png",
+      "X": 210, "Y": 105, "TargetX": 490, "TargetY": 65, 
+      "ControlX": 260, "ControlY": 110,
+	  "Control2X": 280, "Control2Y": 40,
+      "Rotation": 175, "TargetRotation": 180,
+      "TurnSignal": "Right", "CorrectOrder": 1,
+      "Reason": "Auto A už jede po kruhovém objezdu, má absolutní přednost."
+    },
+    {
+      "Id": "Auto B",
+      "ImageName": "car_red.png",
+      "X": 225, "Y": 140, "TargetX": 490, "TargetY": 65,
+	  "ControlX": 240, "ControlY": 110,
+	  "Control2X": 275, "Control2Y": 45,
+      "Rotation": 90, "TargetRotation": 180,
+      "TurnSignal": "Right", "CorrectOrder": 2,
+      "Reason": "Auto B teprve vjíždí na kruhový objezd, proto dává přednost."
+    }
+  ],
+  "Signs": [
+    { "ImageName": "kruhac_znacka.png", "X": 260, "Y": 110 }
+  ]
+}

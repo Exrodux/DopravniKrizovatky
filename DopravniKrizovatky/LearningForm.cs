@@ -19,7 +19,7 @@ namespace DopravniKrizovatky
         private Timer animationTimer;
         private Vehicle animatingVehicle = null;
         private float animationProgress = 0f;
-        private float animationSpeed = 0.03f;
+        private float animationSpeed = 0.02f;
 
         public LearningForm()
         {
@@ -137,8 +137,25 @@ namespace DopravniKrizovatky
                 return;
             }
 
-            if (animatingVehicle.ControlX.HasValue && animatingVehicle.ControlY.HasValue)
+            if (animatingVehicle.ControlX.HasValue && animatingVehicle.ControlY.HasValue && animatingVehicle.Control2X.HasValue && animatingVehicle.Control2Y.HasValue)
             {
+                
+                float t = animationProgress;
+                float u = 1 - t;
+
+                animatingVehicle.CurrentX = (u * u * u * animatingVehicle.X) +
+                                            (3 * u * u * t * animatingVehicle.ControlX.Value) +
+                                            (3 * u * t * t * animatingVehicle.Control2X.Value) +
+                                            (t * t * t * animatingVehicle.TargetX);
+
+                animatingVehicle.CurrentY = (u * u * u * animatingVehicle.Y) +
+                                            (3 * u * u * t * animatingVehicle.ControlY.Value) +
+                                            (3 * u * t * t * animatingVehicle.Control2Y.Value) +
+                                            (t * t * t * animatingVehicle.TargetY);
+            }
+            else if (animatingVehicle.ControlX.HasValue && animatingVehicle.ControlY.HasValue)
+            {
+                
                 float t = animationProgress;
                 float u = 1 - t;
                 animatingVehicle.CurrentX = (u * u * animatingVehicle.X) + (2 * u * t * animatingVehicle.ControlX.Value) + (t * t * animatingVehicle.TargetX);

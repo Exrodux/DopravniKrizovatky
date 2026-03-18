@@ -51,6 +51,9 @@ namespace DopravniKrizovatky
         public int? ControlX { get; set; }
         public int? ControlY { get; set; }
 
+        public int? Control2X { get; set; }
+        public int? Control2Y { get; set; }
+
 
         [JsonIgnore]
         public float CurrentX { get; set; }
