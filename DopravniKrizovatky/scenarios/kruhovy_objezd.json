@@ -5,7 +5,7 @@
   "BackgroundImage": "krizovatka_k.png",
   "Vehicles": [
     {
-      "Id": "Auto A",
+      "Id": "Modré auto",
       "ImageName": "car_blue.png",
       "X": 210, "Y": 105, "TargetX": 490, "TargetY": 65, 
       "ControlX": 260, "ControlY": 110,
@@ -15,7 +15,7 @@
       "Reason": "Auto A už jede po kruhovém objezdu, má absolutní přednost."
     },
     {
-      "Id": "Auto B",
+      "Id": "Červené auto",
       "ImageName": "car_red.png",
       "X": 225, "Y": 140, "TargetX": 490, "TargetY": 65,
 	  "ControlX": 240, "ControlY": 110,
