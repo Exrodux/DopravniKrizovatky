@@ -220,24 +220,24 @@ namespace DopravniKrizovatky
                     {
                         var state = e.Graphics.Save();
 
-                        // Určení aktuální polohy
+                        
                         bool useCurrent = (v == animatingVehicle) || v.IsFinished;
                         float dx = useCurrent ? v.CurrentX : v.X;
                         float dy = useCurrent ? v.CurrentY : v.Y;
                         float rot = useCurrent ? v.CurrentRotation : v.Rotation;
 
-                        // --- TRANSFORMACE SOUŘADNIC AUTA (STŘED OTÁČENÍ) ---
-                        e.Graphics.TranslateTransform(dx + 30, dy + 20); // Posun na střed auta
-                        e.Graphics.RotateTransform(rot);                 // Otočení
-                        e.Graphics.DrawImage(img, -30, -20, 60, 40);     // Vykreslení (vycentrované)
+                        
+                        e.Graphics.TranslateTransform(dx + 30, dy + 20); 
+                        e.Graphics.RotateTransform(rot);                
+                        e.Graphics.DrawImage(img, -30, -20, 60, 40);    
 
-                        // --- BLINKRY (SOUŘADNICE, KTERÉ JSI CHTĚL) ---
+                       
                         if (!v.IsFinished && !string.IsNullOrEmpty(v.TurnSignal) && v.TurnSignal != "None")
                         {
-                            int blinkrX = -22;        // Pozice na délku
-                            int blinkrY_Left = -15;   // Pozice nahoře
-                            int blinkrY_Right = 7;    // Pozice dole
-                            int size = 6;             // Velikost
+                            int blinkrX = -22;       
+                            int blinkrY_Left = -15;   
+                            int blinkrY_Right = 7;    
+                            int size = 6;             
 
                             if (v.TurnSignal == "Left")
                                 e.Graphics.FillEllipse(Brushes.Orange, blinkrX, blinkrY_Right, size, size);
