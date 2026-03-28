@@ -209,22 +209,18 @@ namespace DopravniKrizovatky
 
                         if (!v.IsFinished && !string.IsNullOrEmpty(v.TurnSignal) && v.TurnSignal != "None")
                         {
-                            // --- NASTAVENÍ POZICE BLINKRŮ ---
-                            // Hraj si s těmito čísly, dokud to nebude sedět:
+                            
 
-                            // X: Kde je blinkr na délku? (blíž k -30 je zadek, blíž k 30 je předek)
-                            // Pokud je auto oříznuté těsně, zkus třeba -25 nebo 25.
-                            int blinkrX = -22; // Zkus změnit na -25, pokud máš blinkry vzadu
+                            int blinkrX = -22; 
 
-                            // Y: Kde je blinkr na šířku? 
-                            // -20 je horní okraj, 20 je spodní okraj.
-                            int blinkrY_Left = -15;  // Levý blinkr (nahoře)
-                            int blinkrY_Right = 7;  // Pravý blinkr (dole)
+                            
+                            int blinkrY_Left = -15;  
+                            int blinkrY_Right = 7;  
 
-                            // Velikost kuličky (v pixelech)
+                            
                             int size = 6;
 
-                            // Vykreslení
+                           
                             if (v.TurnSignal == "Left")
                                 e.Graphics.FillEllipse(Brushes.Orange, blinkrX, blinkrY_Right, size, size);
 

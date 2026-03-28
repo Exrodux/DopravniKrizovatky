@@ -141,7 +141,7 @@ namespace DopravniKrizovatky
                     lblDescription.Text = "Křižovatka je volná. Výborně!";
                     lblDescription.ForeColor = Color.Cyan;
 
-                    SaveScoreToHistory(); // Sledování úspěšnosti
+                    SaveScoreToHistory(); 
                     MessageBox.Show($"Křižovatka dokončena! Tvoje skóre: {score}\nVýsledek byl uložen do historie.", "Hotovo");
                 }
                 else
@@ -149,7 +149,7 @@ namespace DopravniKrizovatky
                     lblDescription.Text = "Kdo jede dál?";
                     lblDescription.ForeColor = Color.White;
                 }
-                pbMap.Invalidate(); return; // Překreslení scény s novými barvami semaforů
+                pbMap.Invalidate(); return;
             }
 
             if (animatingVehicle.ControlX.HasValue && animatingVehicle.ControlY.HasValue && animatingVehicle.Control2X.HasValue && animatingVehicle.Control2Y.HasValue)
