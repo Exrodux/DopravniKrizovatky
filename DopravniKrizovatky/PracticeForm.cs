@@ -39,7 +39,7 @@ namespace DopravniKrizovatky
 
         private void PracticeForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            new MainForm().Show();
+            Application.OpenForms["MainForm"].Show();
         }
 
         private void btnLoadScenario_Click(object sender, EventArgs e)
@@ -275,7 +275,7 @@ namespace DopravniKrizovatky
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            new MainForm().Show();
+            Application.OpenForms["MainForm"].Show();
             Hide();
         }
 
